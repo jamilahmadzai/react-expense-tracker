@@ -1,16 +1,22 @@
 import Header from "./Header";
 import Balance from "./Balance";
 import IncomeExpense from "./IncomeExpense";
+import TransactionList from "./TransactionList";
+import AddNewTransaction from "./AddNewTransaction";
+
+import { GlobalProvider } from "./context";
 
 function App() {
   return (
-    <div>
+    <GlobalProvider>
       <Header />
       <div className="container">
         <Balance />
         <IncomeExpense />
+        <TransactionList />
+        <AddNewTransaction />
       </div>
-    </div>
+    </GlobalProvider>
   );
 }
 

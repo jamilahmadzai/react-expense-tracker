@@ -1,10 +1,17 @@
 import React from "react";
+import { useGlobalContext } from "./context";
 
 function Balance() {
+  const { transactions } = useGlobalContext();
+
+  const amounts = transactions.map((transaction) => transaction.amount);
+
+  const total = amounts.reduce((acc, amount) => (acc += amount), 0).toFixed(2);
+
   return (
     <div>
       <h4>Your Balance</h4>
-      <h1 id="balance">$0.00</h1>
+      <h1 id="balance">${total}</h1>
     </div>
   );
 }
