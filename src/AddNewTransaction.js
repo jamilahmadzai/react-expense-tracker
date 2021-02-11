@@ -4,7 +4,7 @@ import { useGlobalContext } from "./context";
 const AddNewTransaction = () => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
-  const { addTransaction } = useGlobalContext();
+  const { addTransaction, clearTransaction } = useGlobalContext();
 
   const handleText = (e) => {
     setText(e.target.value);
@@ -22,6 +22,15 @@ const AddNewTransaction = () => {
       id: Date.now(),
     };
     addTransaction(newTransaction);
+    setText("");
+    setAmount(0);
+  };
+
+  const clearAll = (e) => {
+    e.preventDefault();
+    clearTransaction();
+    setText("");
+    setAmount(0);
   };
 
   return (
@@ -29,7 +38,9 @@ const AddNewTransaction = () => {
       <h3>Add new transaction</h3>
       <form id="form">
         <div className="form-control">
-          <label htmlFor="text">Text</label>
+          <label htmlFor="text">
+            <strong>Transaction</strong>
+          </label>
           <input
             type="text"
             id="text"
@@ -40,7 +51,7 @@ const AddNewTransaction = () => {
         </div>
         <div className="form-control">
           <label htmlFor="amount">
-            Amount <br />
+            <strong>Amount</strong> <br />
             (negative - expense, positive - income)
           </label>
           <input
@@ -51,8 +62,15 @@ const AddNewTransaction = () => {
             onChange={handleAmount}
           />
         </div>
-        <button className="btn" onClick={onSubmit}>
+        <button
+          className="btn add-btn"
+          onClick={onSubmit}
+          disabled={!text || amount === 0 ? true : false}
+        >
           Add transaction
+        </button>
+        <button className="btn clear-btn" onClick={clearAll}>
+          Clear transactions
         </button>
       </form>
     </div>

@@ -24,12 +24,17 @@ const GlobalProvider = ({ children }) => {
     });
   };
 
+  const clearTransaction = () => {
+    dispatch({ type: "CLEAR_TRANSACTION" });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
         deleteTransaction,
         addTransaction,
+        clearTransaction,
       }}
     >
       {children}

@@ -13,6 +13,12 @@ export default (state, action) => {
         transactions: [action.payload, ...state.transactions],
       };
       break;
+    case "CLEAR_TRANSACTION":
+      return {
+        ...state,
+        transactions: [],
+      };
+      break;
     default:
       return state;
   }
