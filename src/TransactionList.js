@@ -4,7 +4,6 @@ import Transaction from "./Transaction";
 
 const TransactionList = () => {
   const { transactions } = useGlobalContext();
-  console.log(transactions);
 
   return (
     <div>

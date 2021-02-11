@@ -2,12 +2,7 @@ import React, { createContext, useReducer, useContext } from "react";
 import Reducer from "./Reducer";
 
 const initialState = {
-  transaction: [
-    { id: 1, text: "Flower", amount: -20 },
-    { id: 2, text: "Salary", amount: 500 },
-    { id: 3, text: "Camera", amount: 220 },
-    { id: 4, text: "Phone", amount: -400 },
-  ],
+  transactions: [],
 };
 
 const GlobalContext = createContext(initialState);
@@ -15,8 +10,28 @@ const GlobalContext = createContext(initialState);
 const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
+  const deleteTransaction = (id) => {
+    dispatch({
+      type: "DELETE_TRANSACTION",
+      payload: id,
+    });
+  };
+
+  const addTransaction = (transaction) => {
+    dispatch({
+      type: "ADD_TRANSACTION",
+      payload: transaction,
+    });
+  };
+
   return (
-    <GlobalContext.Provider value={{ transactions: state.transaction }}>
+    <GlobalContext.Provider
+      value={{
+        transactions: state.transactions,
+        deleteTransaction,
+        addTransaction,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );

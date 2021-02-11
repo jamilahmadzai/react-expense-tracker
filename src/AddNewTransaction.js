@@ -4,7 +4,7 @@ import { useGlobalContext } from "./context";
 const AddNewTransaction = () => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
-  const { transaction } = useGlobalContext();
+  const { addTransaction } = useGlobalContext();
 
   const handleText = (e) => {
     setText(e.target.value);
@@ -12,6 +12,16 @@ const AddNewTransaction = () => {
 
   const handleAmount = (e) => {
     setAmount(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const newTransaction = {
+      text,
+      amount: parseInt(amount),
+      id: Date.now(),
+    };
+    addTransaction(newTransaction);
   };
 
   return (
@@ -41,7 +51,9 @@ const AddNewTransaction = () => {
             onChange={handleAmount}
           />
         </div>
-        <button className="btn">Add transaction</button>
+        <button className="btn" onClick={onSubmit}>
+          Add transaction
+        </button>
       </form>
     </div>
   );
